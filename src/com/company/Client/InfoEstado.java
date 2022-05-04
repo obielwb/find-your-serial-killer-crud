@@ -41,7 +41,7 @@ public class InfoEstado implements Cloneable
         this.area_km2 = areaEmKm2;
     }
 
-    public InfoEstado (String nome, String codigoIBGE, String areaEmKm2) throws Exception
+    public InfoEstado(String nome, String codigoIBGE, String areaEmKm2) throws Exception
     {
         this.setNome        (nome);
         this.setCodigo_ibge (codigoIBGE);
@@ -49,7 +49,7 @@ public class InfoEstado implements Cloneable
     }
 
     // exigencia do mapeador de JSon
-    public InfoEstado () {}
+    public InfoEstado() {}
 
     public String toString ()
     {
@@ -98,7 +98,7 @@ public class InfoEstado implements Cloneable
         return ret;
     }
 
-    public InfoEstado (InfoEstado modelo) throws Exception
+    public InfoEstado(InfoEstado modelo) throws Exception
     {
         if (modelo==null)
             throw new Exception ("Modelo inexistente");
@@ -114,7 +114,7 @@ public class InfoEstado implements Cloneable
 
         try
         {
-            ret = new InfoEstado (this);
+            ret = new InfoEstado(this);
         }
         catch (Exception erro)
         {}

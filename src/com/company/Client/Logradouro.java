@@ -78,7 +78,7 @@ public class Logradouro
     }
 
     private InfoEstado estado_info;
-    public  InfoEstado getEstado_info ()
+    public InfoEstado getEstado_info ()
     {
         return (InfoEstado)this.estado_info.clone();
     }
