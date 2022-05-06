@@ -1,4 +1,4 @@
-package com.company;
+package com.company.main;
 
 public class InfoCidade implements Cloneable
 {
