@@ -28,13 +28,13 @@ public class SerialKiller {
         this.armas = armas;
     }
 
-    private int vezesContrado;
-    public int getVezesContrado () { return this.vezesContrado; }
-    public void setVezesContrado (int vezesContrado) throws Exception
+    private int vezesContratado;
+    public int getVezesContratado() { return this.vezesContratado; }
+    public void setVezesContratado(int vezesContratado) throws Exception
     {
-        if (vezesContrado < 0)
-            throw new Exception("O número de vezes contrado não pode ser negativo.");
-        this.vezesContrado = vezesContrado;
+        if (vezesContratado < 0)
+            throw new Exception("O número de vezes contrato não pode ser negativo.");
+        this.vezesContratado = vezesContratado;
     }
 
     private int mortesConfirmadas;
@@ -46,13 +46,13 @@ public class SerialKiller {
         this.mortesConfirmadas = mortesConfirmadas;
     }
 
-    private float precoPorContrado;
-    public float getPrecoPorContrado () { return this.precoPorContrado; }
-    public void setPrecoPorContrado (float precoPorContrado) throws Exception
+    private float precoPorContrato;
+    public float getPrecoPorContrato() { return this.precoPorContrato; }
+    public void setPrecoPorContrato(float precoPorContrato) throws Exception
     {
-        if (precoPorContrado < 0)
-            throw new Exception("O preço por contrado não pode ser negativo.");
-        this.precoPorContrado = precoPorContrado;
+        if (precoPorContrato < 0)
+            throw new Exception("O preço por contrato não pode ser negativo.");
+        this.precoPorContrato = precoPorContrato;
     }
 
     private int cep;
@@ -86,18 +86,18 @@ public class SerialKiller {
 
     public SerialKiller (String nome,
                          String armas,
-                         int vezesContrado,
+                         int vezesContratado,
                          int mortesConfirmadas,
-                         float precoPorContrado,
+                         float precoPorContrato,
                          int cep,
                          int numero,
                          String complemento) throws Exception
     {
         this.setNome(nome);
         this.setArmas(armas);
-        this.setVezesContrado(vezesContrado);
+        this.setVezesContratado(vezesContratado);
         this.setMortesConfirmadas(mortesConfirmadas);
-        this.setPrecoPorContrado(precoPorContrado);
+        this.setPrecoPorContrato(precoPorContrato);
         this.setCep(cep);
         this.setNumero(numero);
         this.setComplemento(complemento);
@@ -107,10 +107,10 @@ public class SerialKiller {
     {
         return "Nome: " + this.nome +
                 "\nArmas: " + this.armas +
-                "\nVezes contrado: " + this.vezesContrado +
+                "\nVezes contrato: " + this.vezesContratado +
                 "\nMortes confirmadas: "+ this.mortesConfirmadas +
-                "\nPreço por contrado: " + this.precoPorContrado;
-                //"\nC.E.P......: "+ this.cep;
+                "\nPreço por contrato: " + this.precoPorContrato;
+        //"\nC.E.P......: "+ this.cep;
     }
 
     public int hashCode ()
@@ -122,10 +122,11 @@ public class SerialKiller {
         if (this.complemento!=null)
             ret = 2*ret + this.complemento.hashCode();
 
+        ret = 2*ret + new Integer(this.id)                .hashCode();
         ret = 2*ret + this.armas                          .hashCode();
-        ret = 2*ret + new Integer(this.vezesContrado)     .hashCode();
+        ret = 2*ret + new Integer(this.vezesContratado)     .hashCode();
         ret = 2*ret + new Integer(this.mortesConfirmadas) .hashCode();
-        ret = 2*ret + new Float(this.precoPorContrado)    .hashCode();
+        ret = 2*ret + new Float(this.precoPorContrato)    .hashCode();
         ret = 2*ret + new Integer(this.cep)               .hashCode();
         ret = 2*ret + new Integer(this.numero)            .hashCode();
 
@@ -137,11 +138,12 @@ public class SerialKiller {
         if (modelo == null)
             throw new Exception("Modelo inexistente");
 
+        this.id = modelo.id;
         this.nome = modelo.nome;
         this.armas= modelo.armas;
-        this.vezesContrado = modelo.vezesContrado;
+        this.vezesContratado = modelo.vezesContratado;
         this.mortesConfirmadas = modelo.mortesConfirmadas;
-        this.precoPorContrado = modelo.precoPorContrado;
+        this.precoPorContrato = modelo.precoPorContrato;
         this.cep = modelo.cep;
         this.numero = modelo.numero;
         this.complemento = modelo.complemento;
