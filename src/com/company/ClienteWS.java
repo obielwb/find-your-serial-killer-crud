@@ -1,4 +1,4 @@
-package com.company.Client;
+package com.company;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
@@ -19,6 +20,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class ClienteWS
 {
+    // Método GET (Read)
     public static Object getObjeto (Class tipoObjetoRetorno,
                                     String urlWebService,
                                     String... parametros)
@@ -52,6 +54,7 @@ public class ClienteWS
         return objetoRetorno;
     }
 
+    // Método POST (Create)
     public static Object postObjeto (Object objetoEnvio,
                                      Class tipoObjetoRetorno,
                                      String urlWebService)
@@ -94,6 +97,84 @@ public class ClienteWS
         return objetoRetorno;
     }
 
+    // Método DELETE (Delete)
+    public static void deleteObject(Object objetoEnvio,
+                                    String urlWebService)
+    {
+        try
+        {
+            String requestJson = toJson(objetoEnvio);
+
+            URL url = new URL(urlWebService);
+            HttpURLConnection connection =
+                    (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+            connection.setConnectTimeout(15000);
+            //connection.setRequestProperty("login", "seulogin");
+            //connection.setRequestProperty("senha", "suasenha");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("Content-Length", Integer.toString(requestJson.length()));
+
+            DataOutputStream stream =
+                    new DataOutputStream (connection.getOutputStream());
+            stream.write (requestJson.getBytes(StandardCharsets.UTF_8));
+            stream.flush ();
+            stream.close ();
+            connection.connect ();
+
+            //String responseJson = inputStreamToString (connection.getInputStream());
+            connection.disconnect();
+            //objetoRetorno = fromJson (responseJson, tipoObjetoRetorno);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    // Método PATCH (Update)
+    public static Object patchObject(Object objetoEnvio,
+                                     Class tipoObjetoRetorno,
+                                     String urlWebService)
+    {
+        Object objetoRetorno = null;
+
+        try
+        {
+            String requestJson = toJson(objetoEnvio);
+
+            URL url = new URL(urlWebService);
+            HttpURLConnection connection =
+                    (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+            connection.setConnectTimeout(15000);
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("Content-Length", Integer.toString(requestJson.length()));
+
+            DataOutputStream stream =
+                    new DataOutputStream (connection.getOutputStream());
+            stream.write (requestJson.getBytes(StandardCharsets.UTF_8));
+            stream.flush ();
+            stream.close ();
+            connection.connect ();
+
+            String responseJson = inputStreamToString (connection.getInputStream());
+            connection.disconnect();
+            objetoRetorno = fromJson (responseJson, tipoObjetoRetorno);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return objetoRetorno;
+    }
 
     public static String inputStreamToString (InputStream is) throws IOException
     {

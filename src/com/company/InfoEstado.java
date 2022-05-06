@@ -1,7 +1,20 @@
-package com.company.Client;
+package com.company;
 
-public class InfoCidade implements Cloneable
+public class InfoEstado implements Cloneable
 {
+    private String nome;
+    public String getNome ()
+    {
+        return this.nome;
+    }
+    public void setNome (String nome) throws Exception
+    {
+        if (nome==null || nome.length()==0)
+            throw new Exception ("Nome ausente");
+
+        this.nome = nome;
+    }
+
     private String codigo_ibge;
     public  String getCodigo_ibge ()
     {
@@ -16,7 +29,7 @@ public class InfoCidade implements Cloneable
     }
 
     private String area_km2;
-    public  String getArea_km2()
+    public  String getArea_km2 ()
     {
         return this.area_km2;
     }
@@ -28,18 +41,20 @@ public class InfoCidade implements Cloneable
         this.area_km2 = areaEmKm2;
     }
 
-    public InfoCidade (String codigoIBGE, String areaEmKm2) throws Exception
+    public InfoEstado(String nome, String codigoIBGE, String areaEmKm2) throws Exception
     {
+        this.setNome        (nome);
         this.setCodigo_ibge (codigoIBGE);
         this.setArea_km2    (areaEmKm2);
     }
 
     // exigencia do mapeador de JSon
-    public InfoCidade () {}
+    public InfoEstado() {}
 
     public String toString ()
     {
-        return "Codigo IBGE: "+
+        return this.nome+
+               " / Codigo IBGE: "+
                this.codigo_ibge+
                " / Area(km2): "+
                this.area_km2;
@@ -54,16 +69,19 @@ public class InfoCidade implements Cloneable
             return false;
 
       //if (!(this.getClass() != obj.getClass())
-      //if (!(obj.getClass != InfoCidade.class))
-        if (!(obj instanceof InfoCidade))
+      //if (!(obj.getClass != InfoEstado.class))
+        if (!(obj instanceof InfoEstado))
             return false;
 
-        InfoCidade infoCidade = (InfoCidade)obj;
+        InfoEstado infoEstado = (InfoEstado)obj;
 
-        if (!this.codigo_ibge.equals(infoCidade.codigo_ibge))
+        if (!this.nome.equals(infoEstado.nome))
             return false;
 
-        if (!this.area_km2.equals(infoCidade.area_km2))
+        if (!this.codigo_ibge.equals(infoEstado.codigo_ibge))
+            return false;
+
+        if (!this.area_km2.equals(infoEstado.area_km2))
             return false;
 
         return true;
@@ -73,28 +91,30 @@ public class InfoCidade implements Cloneable
     {
         int ret=1;
 
+        ret = 2*ret + this.nome       .hashCode();
         ret = 2*ret + this.codigo_ibge.hashCode();
         ret = 2*ret + this.area_km2   .hashCode();
 
         return ret;
     }
 
-    public InfoCidade (InfoCidade modelo) throws Exception
+    public InfoEstado(InfoEstado modelo) throws Exception
     {
         if (modelo==null)
             throw new Exception ("Modelo inexistente");
 
+        this.nome        = modelo.nome;
         this.codigo_ibge = modelo.codigo_ibge;
         this.area_km2    = modelo.area_km2;
     }
 
     public Object clone ()
     {
-        InfoCidade ret=null;
+        InfoEstado ret=null;
 
         try
         {
-            ret = new InfoCidade (this);
+            ret = new InfoEstado(this);
         }
         catch (Exception erro)
         {}

@@ -1,4 +1,4 @@
-package com.company.Client;
+package com.company;
 
 public class Programa
 {
