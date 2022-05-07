@@ -124,20 +124,16 @@ public class Logradouro
 
     public String toString ()
     {
-        return "Logradouro: "+
+        return "Logradouro........: "+
                this.logradouro+
-               "\nComplemento: "+
-               this.complemento+
-               "\nCidade.....: "+
+               "\nCidade............: "+
                this.cidade+
                " / "+
                this.cidade_info+
-               "\nEstado.....: "+
+               "\nEstado............: "+
                this.estado+
                " / "+
-               this.estado_info+
-               "\nC.E.P......: "+
-               this.cep;
+               this.estado_info;
     }
 
     public boolean equals (Object obj)

@@ -7,7 +7,7 @@ import com.company.bd.dbos.*;
 
 public class SerialKillers
 {
-    public static boolean cadastrado (int id) throws Exception
+    public static boolean cadastrado (String id) throws Exception
     {
         boolean retorno = false;
 
@@ -16,14 +16,14 @@ public class SerialKillers
             String sql;
 
             sql = "SELECT * " +
-                    "FROM SerialKillers " +
+                    "FROM \"SerialKillers\" " +
                     "WHERE id = ?";
 
-            BDMySQL.COMANDO.prepareStatement (sql);
+            BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDMySQL.COMANDO.setInt (1, id);
+            BDPostgreSQL.COMANDO.setString (1, id);
 
-            MeuResultSet resultado = (MeuResultSet)BDMySQL.COMANDO.executeQuery ();
+            MeuResultSet resultado = (MeuResultSet) BDPostgreSQL.COMANDO.executeQuery ();
 
             retorno = resultado.first(); // pode-se usar resultado.last() ou resultado.next() ou resultado.previous() ou resultado.absotule(numeroDaLinha)
         }
@@ -44,33 +44,34 @@ public class SerialKillers
         {
             String sql;
 
-            sql = "INSERT INTO SerialKillers " +
-                    "(nome, armas, vezesContratado, mortesConfirmadas, precoPorContrato, cep, numero, complemento) " +
+            sql = "INSERT INTO \"SerialKillers\" " +
+                    "(id, nome, armas, \"vezesContratado\", \"mortesConfirmadas\", \"precoPorContrato\", cep, numero, complemento) " +
                     "VALUES " +
-                    "(?, ?, ?, ?, ?, ?, ?, ?)";
+                    "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            BDMySQL.COMANDO.prepareStatement (sql);
+            BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDMySQL.COMANDO.setString (1, serialKiller.getNome());
-            BDMySQL.COMANDO.setString(2, serialKiller.getArmas());
-            BDMySQL.COMANDO.setInt(3, serialKiller.getVezesContratado());
-            BDMySQL.COMANDO.setInt(4, serialKiller.getMortesConfirmadas());
-            BDMySQL.COMANDO.setFloat(5, serialKiller.getPrecoPorContrato());
-            BDMySQL.COMANDO.setInt(6, serialKiller.getCep());
-            BDMySQL.COMANDO.setInt(7, serialKiller.getNumero());
-            BDMySQL.COMANDO.setString(8, serialKiller.getComplemento());
+            BDPostgreSQL.COMANDO.setString(1, serialKiller.getId());
+            BDPostgreSQL.COMANDO.setString (2, serialKiller.getNome());
+            BDPostgreSQL.COMANDO.setString(3, serialKiller.getArmas());
+            BDPostgreSQL.COMANDO.setInt(4, serialKiller.getVezesContratado());
+            BDPostgreSQL.COMANDO.setInt(5, serialKiller.getMortesConfirmadas());
+            BDPostgreSQL.COMANDO.setFloat(6, serialKiller.getPrecoPorContrato());
+            BDPostgreSQL.COMANDO.setInt(7, serialKiller.getCep());
+            BDPostgreSQL.COMANDO.setInt(8, serialKiller.getNumero());
+            BDPostgreSQL.COMANDO.setString(9, serialKiller.getComplemento());
 
-            BDMySQL.COMANDO.executeUpdate ();
-            BDMySQL.COMANDO.commit        ();
+            BDPostgreSQL.COMANDO.executeUpdate ();
+            BDPostgreSQL.COMANDO.commit        ();
         }
         catch (SQLException erro)
         {
-            BDMySQL.COMANDO.rollback();
-            throw new Exception ("Erro ao inserir livro");
+            BDPostgreSQL.COMANDO.rollback();
+            throw new Exception ("Erro ao inserir serial killer");
         }
     }
 
-    public static void excluir (int id) throws Exception
+    public static void excluir (String id) throws Exception
     {
         if (!cadastrado (id))
             throw new Exception ("Nao cadastrado");
@@ -79,18 +80,18 @@ public class SerialKillers
         {
             String sql;
 
-            sql = "DELETE FROM SerialKillers " +
+            sql = "DELETE FROM \"SerialKillers\" " +
                     "WHERE id=?";
 
-            BDMySQL.COMANDO.prepareStatement (sql);
+            BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDMySQL.COMANDO.setInt (1, id);
+            BDPostgreSQL.COMANDO.setString (1, id);
 
-            BDMySQL.COMANDO.executeUpdate ();
-            BDMySQL.COMANDO.commit        ();        }
+            BDPostgreSQL.COMANDO.executeUpdate ();
+            BDPostgreSQL.COMANDO.commit        ();        }
         catch (SQLException erro)
         {
-            BDMySQL.COMANDO.rollback();
+            BDPostgreSQL.COMANDO.rollback();
             throw new Exception ("Erro ao excluir serial killer");
         }
     }
@@ -107,40 +108,34 @@ public class SerialKillers
         {
             String sql;
 
-            sql = "UPDATE SerialKillers " +
-                    "SET nome=? " +
-                    "SET armas=? " +
-                    "SET vezesContratado=? " +
-                    "SET mortesConfirmadas=? " +
-                    "SET precoPorContrato=? " +
-                    "SET cep=? " +
-                    "SET numero=? " +
-                    "SET complemento=? " +
-                    "WHERE id = ?";
+            sql = "UPDATE \"SerialKillers\" " +
+                    "SET (nome, armas, \"vezesContratado\", \"mortesConfirmadas\", \"precoPorContrato\", cep, numero, complemento)=" +
+                    "(?, ?, ?, ?, ?, ?, ?, ?)" +
+                    "WHERE id=?";
 
-            BDMySQL.COMANDO.prepareStatement (sql);
+            BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDMySQL.COMANDO.setString (1, serialKiller.getNome());
-            BDMySQL.COMANDO.setString(2, serialKiller.getArmas());
-            BDMySQL.COMANDO.setInt(3, serialKiller.getVezesContratado());
-            BDMySQL.COMANDO.setInt(4, serialKiller.getMortesConfirmadas());
-            BDMySQL.COMANDO.setFloat(5, serialKiller.getPrecoPorContrato());
-            BDMySQL.COMANDO.setInt(6, serialKiller.getCep());
-            BDMySQL.COMANDO.setInt(7, serialKiller.getNumero());
-            BDMySQL.COMANDO.setString(8, serialKiller.getComplemento());
-            BDMySQL.COMANDO.setInt (9, serialKiller.getId());
+            BDPostgreSQL.COMANDO.setString (1, serialKiller.getNome());
+            BDPostgreSQL.COMANDO.setString(2, serialKiller.getArmas());
+            BDPostgreSQL.COMANDO.setInt(3, serialKiller.getVezesContratado());
+            BDPostgreSQL.COMANDO.setInt(4, serialKiller.getMortesConfirmadas());
+            BDPostgreSQL.COMANDO.setFloat(5, serialKiller.getPrecoPorContrato());
+            BDPostgreSQL.COMANDO.setInt(6, serialKiller.getCep());
+            BDPostgreSQL.COMANDO.setInt(7, serialKiller.getNumero());
+            BDPostgreSQL.COMANDO.setString(8, serialKiller.getComplemento());
+            BDPostgreSQL.COMANDO.setString (9, serialKiller.getId());
 
-            BDMySQL.COMANDO.executeUpdate ();
-            BDMySQL.COMANDO.commit        ();
+            BDPostgreSQL.COMANDO.executeUpdate ();
+            BDPostgreSQL.COMANDO.commit        ();
         }
         catch (SQLException erro)
         {
-            BDMySQL.COMANDO.rollback();
+            BDPostgreSQL.COMANDO.rollback();
             throw new Exception ("Erro ao atualizar dados de serial killer");
         }
     }
 
-    public static SerialKiller getSerialKiller (int id) throws Exception
+    public static SerialKiller getSerialKiller (String id) throws Exception
     {
         SerialKiller serialKiller = null;
 
@@ -149,19 +144,20 @@ public class SerialKillers
             String sql;
 
             sql = "SELECT * " +
-                    "FROM SerialKillers " +
+                    "FROM \"SerialKillers\" " +
                     "WHERE id = ?";
 
-            BDMySQL.COMANDO.prepareStatement (sql);
+            BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDMySQL.COMANDO.setInt (1, id);
+            BDPostgreSQL.COMANDO.setString (1, id);
 
-            MeuResultSet resultado = (MeuResultSet)BDMySQL.COMANDO.executeQuery ();
+            MeuResultSet resultado = (MeuResultSet) BDPostgreSQL.COMANDO.executeQuery ();
 
             if (!resultado.first())
                 throw new Exception ("Nao cadastrado");
 
             serialKiller = new SerialKiller (
+                    id,
                     resultado.getString("nome"),
                     resultado.getString("armas"),
                     resultado.getInt("vezesContratado"),
@@ -189,11 +185,11 @@ public class SerialKillers
             String sql;
 
             sql = "SELECT * " +
-                    "FROM SerialKillers";
+                    "FROM \"SerialKillers\"";
 
-            BDMySQL.COMANDO.prepareStatement (sql);
+            BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            resultado = (MeuResultSet)BDMySQL.COMANDO.executeQuery ();
+            resultado = (MeuResultSet) BDPostgreSQL.COMANDO.executeQuery ();
         }
         catch (SQLException erro)
         {

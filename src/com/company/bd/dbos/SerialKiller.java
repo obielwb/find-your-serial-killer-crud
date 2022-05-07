@@ -1,11 +1,11 @@
 package com.company.bd.dbos;
 
 public class SerialKiller {
-    private int id;
-    public int getId () { return this.id; }
-    public void setId (int id) throws Exception
+    private String id;
+    public String getId () { return this.id; }
+    public void setId (String id) throws Exception
     {
-        if (id < 0)
+        if (id == null)
             throw new Exception("Id não pode ser nulo");
         this.id = id;
     }
@@ -84,7 +84,8 @@ public class SerialKiller {
         this.complemento = complemento;
     }
 
-    public SerialKiller (String nome,
+    public SerialKiller (String id,
+                         String nome,
                          String armas,
                          int vezesContratado,
                          int mortesConfirmadas,
@@ -93,6 +94,7 @@ public class SerialKiller {
                          int numero,
                          String complemento) throws Exception
     {
+        this.setId(id);
         this.setNome(nome);
         this.setArmas(armas);
         this.setVezesContratado(vezesContratado);
@@ -105,12 +107,15 @@ public class SerialKiller {
 
     public String toString()
     {
-        return "Nome: " + this.nome +
-                "\nArmas: " + this.armas +
-                "\nVezes contrato: " + this.vezesContratado +
-                "\nMortes confirmadas: "+ this.mortesConfirmadas +
-                "\nPreço por contrato: " + this.precoPorContrato;
-        //"\nC.E.P......: "+ this.cep;
+        return  "ID................: " + this.id +
+                "\nNome..............: " + this.nome +
+                "\nArmas.............: " + this.armas +
+                "\nVezes contrato:...: " + this.vezesContratado +
+                "\nMortes confirmadas: " + this.mortesConfirmadas +
+                "\nPreço por contrato: " + this.precoPorContrato +
+                "\nC.E.P.............: " + this.cep +
+                "\nNumero............: " + this.numero +
+                "\nComplemento.......: " + this.complemento;
     }
 
     public int hashCode ()
@@ -122,9 +127,9 @@ public class SerialKiller {
         if (this.complemento!=null)
             ret = 2*ret + this.complemento.hashCode();
 
-        ret = 2*ret + new Integer(this.id)                .hashCode();
+        ret = 2*ret + this.id                             .hashCode();
         ret = 2*ret + this.armas                          .hashCode();
-        ret = 2*ret + new Integer(this.vezesContratado)     .hashCode();
+        ret = 2*ret + new Integer(this.vezesContratado)   .hashCode();
         ret = 2*ret + new Integer(this.mortesConfirmadas) .hashCode();
         ret = 2*ret + new Float(this.precoPorContrato)    .hashCode();
         ret = 2*ret + new Integer(this.cep)               .hashCode();

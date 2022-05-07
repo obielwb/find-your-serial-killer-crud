@@ -10,7 +10,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/jackson-all-1.9.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jackson-all-1.9.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,10 +19,21 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/mysql5.jar!/" />
+          <root url="jar://$MODULE_DIR$/../postgresql4225.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES />
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Downloads/dotenv-java-2.2.2.zip!/dotenv-java-2.2.2/examples/maven-simple/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/dotenv-java-2.2.2.zip!/dotenv-java-2.2.2/src/main/java" />
+          <root url="jar://$USER_HOME$/Downloads/dotenv-java-2.2.2.zip!/dotenv-java-2.2.2/src/test/java" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

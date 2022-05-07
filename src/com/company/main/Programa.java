@@ -1,11 +1,49 @@
 package com.company.main;
 
 import java.io.IOException;
+import java.util.UUID;
+
+import com.company.bd.core.MeuResultSet;
+import com.company.bd.daos.SerialKillers;
+import com.company.bd.dbos.SerialKiller;
 
 public class Programa
 {
     public static void main (String[] args) throws IOException {
         boolean continuar = true;
+
+        /* try {
+            SerialKiller zodiac = new SerialKiller(
+                    UUID.randomUUID().toString(),
+                    "Zodiac",
+                    "knife:gun",
+                    32,
+                    30,
+                    0,
+                    13033205,
+                    1050,
+                    "Block 4"
+            );
+
+            SerialKillers.incluir(zodiac);
+
+            zodiac.setArmas("gun");
+            SerialKillers.alterar(zodiac);
+
+            System.out.println(SerialKillers.getSerialKiller(zodiac.getId()));
+
+            Logradouro logradouro = (Logradouro)ClienteWS.getObjeto(
+                    Logradouro.class,
+                    "https://api.postmon.com.br/v1/cep",
+                    Integer.toString(zodiac.getCep())
+            );
+
+            System.out.println (logradouro);
+
+            SerialKillers.excluir(zodiac.getId());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        } */
 
         System.out.println("""
 
@@ -18,18 +56,16 @@ public class Programa
 
         while (continuar)
         {
-            System.out.println("0- Sair");
+            System.out.println("0 - Sair");
             System.out.println("1 - Cadastrar um novo Serial Killer");
             System.out.println("2 - Consultar portfólio do Serial Killer");
             System.out.println("3 - Atualizar portfólio do Serial Killer");
             System.out.println("4 - Excluir Serial Killer \n");
-            System.out.println("Escolha qual opção deseja realizar: ");
+            System.out.print("Escolha qual opção deseja realizar: ");
             String opcao = Teclado.getUmString().substring(0, 1);
-
 
             switch (opcao) {
                 case "1":
-                    System.out.println("adsfasdf");
                     try
                     {
                         Logradouro logradouro = (Logradouro)ClienteWS.getObjeto(Logradouro.class, "https://api.postmon.com.br/v1/cep", "13033205");
@@ -40,7 +76,6 @@ public class Programa
                     {
                         System.err.println (erro.getMessage());
                     }
-                    continuar = false;
                 case "2":
                     try
                     {
@@ -68,6 +103,8 @@ public class Programa
                     {
                         System.err.println (erro.getMessage());
                     }
+                case "0":
+                    continuar = false;
             }
 
         }
