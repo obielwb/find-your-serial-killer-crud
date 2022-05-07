@@ -82,17 +82,36 @@ public class Programa
                         int vezesContratado = Teclado.getUmInt();
 
                         System.out.println("Informe a quantidade de mortes confirmadas: ");
-                        String mortes = Teclado.getUmString().toLowerCase().trim();
+                        String mortes = Teclado.getUmInt();
+                        
+                        System.out.println("Informe o preço por contrato: ");
+                        double precoPorContrato = Teclado.getUmDouble();
+                        
+                        System.out.println("Informe o CEP: ");
+                        int cep = Teclado.getUmInt();
+                        
+                        System.out.println("Informe o número da casa: ");
+                        int numero = Teclado.getUmInt();
+                        
+                        System.out.println("Informe o logradouro: ");
+                        String logradouro = Teclado.getUmString().toLowerCase().trim();
+                        
 
-
-
-                        System.out.println(SerialKillers.getSerialKiller(serialKiller));
-
-                        Logradouro logradouro = (Logradouro)ClienteWS.getObjeto(
-                                Logradouro.class,
-                                "https://api.postmon.com.br/v1/cep",
-                                "13033205");
-                        System.out.println (logradouro);
+                        SerialKiller novoSerialKiller = new SerialKiller(
+                            UUID.randomUUID().toString(),
+                            nome,
+                            armas,
+                            vezesContratato,
+                            mortesConfirmadas,
+                            precoPorContrato,
+                            cep,
+                            numero,
+                            logradouro
+                        );
+                        
+                        SerialKiller.incluir(novoSerialKiller);
+                        
+                        System.out.println("Serial Killer incluído com sucesso");
 
                         System.out.print("\nDeseja retornar ao menu (S/N)? ");
                         String retornar = Teclado.getUmString().toUpperCase().substring(0, 1);
@@ -106,11 +125,12 @@ public class Programa
                         else if (retornar != "S")
                         {
                             System.out.println("Opção inválida. Você será direcionado ao menu inicial.");
-                            System.out.println("[Aperte qualquer tecla para continuar]");
-                            Scanner in = new Scanner(System.in);
-                            in.next();
                         }
 
+                        System.out.println("[Aperte qualquer tecla para continuar]");
+                        Scanner in = new Scanner(System.in);
+                        in.next();
+                        
                         Teclado.limparConsole();
                     }
                     catch (Exception erro)
@@ -144,11 +164,12 @@ public class Programa
                         else if (retornar != "S")
                         {
                             System.out.println("Opção inválida. Você será direcionado ao menu inicial.");
-                            System.out.println("[Aperte qualquer tecla para continuar]");
-                            Scanner in = new Scanner(System.in);
-                            in.next();
                         }
 
+                        System.out.println("[Aperte qualquer tecla para continuar]");
+                        Scanner in = new Scanner(System.in);
+                        in.next();
+                        
                         Teclado.limparConsole();
                     }
                     catch (Exception erro)
