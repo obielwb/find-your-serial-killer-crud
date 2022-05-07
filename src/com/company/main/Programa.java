@@ -82,7 +82,7 @@ public class Programa
                         int vezesContratado = Teclado.getUmInt();
 
                         System.out.println("Informe a quantidade de mortes confirmadas: ");
-                        String mortes = Teclado.getUmInt();
+                        int mortes = Teclado.getUmInt();
                         
                         System.out.println("Informe o preço por contrato: ");
                         double precoPorContrato = Teclado.getUmDouble();
@@ -179,7 +179,24 @@ public class Programa
                 case "3":
                     try
                     {
-
+                        Teclado.limparConsole();
+                        
+                        System.out.println("Digite o nome do Serial Killer o qual deseja alterar as informações: ");
+                        String nomeDoSerialKiller = Teclado.getUmString().toLowerCase().trim();
+                        
+                        SerialKiller serialKillerInfo = SerialKillers.getSerialKiller(nomeDoSerialKiller);
+                        
+                        System.out.println("Escolha o campo que deseja mudar: ");
+                        System.out.println("1 - Nome....................");
+                        System.out.println("2 - Armas..................."); 
+                        System.out.println("3 - Vezes contratado........");
+                        System.out.println("4 - Mortes confirmadas......");
+                        System.out.println("5 - Preço por contrato......");
+                        System.out.println("6 - CEP.....................");
+                        System.out.println("7 - Número..................");
+                        System.out.println("8 - Logradouro..............");
+                        
+                        
                     }
                     catch (Exception erro)
                     {
