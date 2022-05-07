@@ -1,6 +1,8 @@
 package com.company.main;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.Scanner;
 import java.util.UUID;
 
 import com.company.bd.core.MeuResultSet;
@@ -68,9 +70,48 @@ public class Programa
                 case "1":
                     try
                     {
-                        Logradouro logradouro = (Logradouro)ClienteWS.getObjeto(Logradouro.class, "https://api.postmon.com.br/v1/cep", "13033205");
+                        Teclado.limparConsole();
+
+                        System.out.println("Informe o nome do Serial Killer: ");
+                        String nome = Teclado.getUmString().toLowerCase().trim();
+
+                        System.out.println("Informe as armas do Serial Killer: ");
+                        String armas = Teclado.getUmString().toLowerCase().trim();
+
+                        System.out.println("Informe o número de vezes contratado: ");
+                        int vezesContratado = Teclado.getUmInt();
+
+                        System.out.println("Informe a quantidade de mortes confirmadas: ");
+                        String mortes = Teclado.getUmString().toLowerCase().trim();
+
+
+
+                        System.out.println(SerialKillers.getSerialKiller(serialKiller));
+
+                        Logradouro logradouro = (Logradouro)ClienteWS.getObjeto(
+                                Logradouro.class,
+                                "https://api.postmon.com.br/v1/cep",
+                                "13033205");
                         System.out.println (logradouro);
-                        continuar = false;
+
+                        System.out.print("\nDeseja retornar ao menu (S/N)? ");
+                        String retornar = Teclado.getUmString().toUpperCase().substring(0, 1);
+
+                        if (retornar == "N")
+                        {
+                            continuar = false;
+                            System.exit(0);
+                        }
+
+                        else if (retornar != "S")
+                        {
+                            System.out.println("Opção inválida. Você será direcionado ao menu inicial.");
+                            System.out.println("[Aperte qualquer tecla para continuar]");
+                            Scanner in = new Scanner(System.in);
+                            in.next();
+                        }
+
+                        Teclado.limparConsole();
                     }
                     catch (Exception erro)
                     {
@@ -79,7 +120,36 @@ public class Programa
                 case "2":
                     try
                     {
+                        Teclado.limparConsole();
+                        System.out.println("Informe o nome do Serial Killer que deseja consultar: ");
+                        String serialKiller = Teclado.getUmString().toLowerCase().trim();
 
+                        System.out.println(SerialKillers.getSerialKiller(serialKiller));
+
+                        Logradouro logradouro = (Logradouro)ClienteWS.getObjeto(
+                                Logradouro.class,
+                                "https://api.postmon.com.br/v1/cep",
+                                "13033205");
+                        System.out.println (logradouro);
+
+                        System.out.print("\nDeseja retornar ao menu (S/N)? ");
+                        String retornar = Teclado.getUmString().toUpperCase().substring(0, 1);
+
+                        if (retornar == "N")
+                        {
+                            continuar = false;
+                            System.exit(0);
+                        }
+
+                        else if (retornar != "S")
+                        {
+                            System.out.println("Opção inválida. Você será direcionado ao menu inicial.");
+                            System.out.println("[Aperte qualquer tecla para continuar]");
+                            Scanner in = new Scanner(System.in);
+                            in.next();
+                        }
+
+                        Teclado.limparConsole();
                     }
                     catch (Exception erro)
                     {
