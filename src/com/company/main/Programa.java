@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.company.bd.core.MeuResultSet;
 import com.company.bd.daos.SerialKillers;
 import com.company.bd.dbos.SerialKiller;
 
@@ -31,7 +30,7 @@ public class Programa
             System.out.println("1 - Cadastrar um Serial Killer");
             System.out.println("2 - Consultar portfólios dos Serial Killers");
             System.out.println("3 - Atualizar portfólio de um Serial Killer");
-            System.out.println("4 - Excluir um Serial Killer \n");
+            System.out.println("4 - Excluir um Serial Killer\n");
             System.out.print("Escolha uma opção: ");
 
             char opcao = ' ';
