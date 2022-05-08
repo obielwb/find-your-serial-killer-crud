@@ -437,7 +437,7 @@ public class Programa
                                                 : cep
                                 );
                                 serialKiller.setNumero(
-                                        numero != 0
+                                        numero == 0
                                                 ? serialKiller.getNumero()
                                                 : numero
                                 );
