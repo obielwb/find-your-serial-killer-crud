@@ -1,13 +1,15 @@
 package com.company.bd.daos;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import com.company.bd.*;
 import com.company.bd.core.*;
 import com.company.bd.dbos.*;
 
 public class SerialKillers
 {
-    public static boolean cadastrado (String id) throws Exception
+    public static boolean cadastrado (String nome) throws Exception
     {
         boolean retorno = false;
 
@@ -17,11 +19,11 @@ public class SerialKillers
 
             sql = "SELECT * " +
                     "FROM \"SerialKillers\" " +
-                    "WHERE id = ?";
+                    "WHERE nome=?";
 
             BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDPostgreSQL.COMANDO.setString (1, id);
+            BDPostgreSQL.COMANDO.setString (1, nome);
 
             MeuResultSet resultado = (MeuResultSet) BDPostgreSQL.COMANDO.executeQuery ();
 
@@ -71,9 +73,9 @@ public class SerialKillers
         }
     }
 
-    public static void excluir (String id) throws Exception
+    public static void excluir (String nome) throws Exception
     {
-        if (!cadastrado (id))
+        if (!cadastrado (nome))
             throw new Exception ("Nao cadastrado");
 
         try
@@ -81,11 +83,11 @@ public class SerialKillers
             String sql;
 
             sql = "DELETE FROM \"SerialKillers\" " +
-                    "WHERE id=?";
+                    "WHERE nome=?";
 
             BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDPostgreSQL.COMANDO.setString (1, id);
+            BDPostgreSQL.COMANDO.setString (1, nome);
 
             BDPostgreSQL.COMANDO.executeUpdate ();
             BDPostgreSQL.COMANDO.commit        ();        }
@@ -101,7 +103,7 @@ public class SerialKillers
         if (serialKiller==null)
             throw new Exception ("Serial killer nao fornecido");
 
-        if (!cadastrado (serialKiller.getId()))
+        if (!cadastrado (serialKiller.getNome()))
             throw new Exception ("Nao cadastrado");
 
         try
@@ -135,7 +137,39 @@ public class SerialKillers
         }
     }
 
-    public static SerialKiller getSerialKiller (String id) throws Exception
+    public static SerialKiller getSerialKillerPorNome(String nome) throws Exception
+    {
+        SerialKiller serialKiller = null;
+
+        try
+        {
+            serialKiller = getSerialKiller("nome", nome);
+        }
+        catch (Exception erro)
+        {
+            throw new Exception ("Erro ao procurar serial killer");
+        }
+
+        return serialKiller;
+    }
+
+    public static SerialKiller getSerialKillerPorId(String id) throws Exception
+    {
+        SerialKiller serialKiller = null;
+
+        try
+        {
+            serialKiller = getSerialKiller("id", id);
+        }
+        catch (Exception erro)
+        {
+            throw new Exception ("Erro ao procurar serial killer");
+        }
+
+        return serialKiller;
+    }
+
+    public static SerialKiller getSerialKiller (String parameter, String value) throws Exception
     {
         SerialKiller serialKiller = null;
 
@@ -143,13 +177,13 @@ public class SerialKillers
         {
             String sql;
 
-            sql = "SELECT * " +
+            sql = String.format("SELECT * " +
                     "FROM \"SerialKillers\" " +
-                    "WHERE id = ?";
+                    "WHERE %s=?", parameter);
 
             BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            BDPostgreSQL.COMANDO.setString (1, id);
+            BDPostgreSQL.COMANDO.setString (1, value);
 
             MeuResultSet resultado = (MeuResultSet) BDPostgreSQL.COMANDO.executeQuery ();
 
@@ -157,7 +191,7 @@ public class SerialKillers
                 throw new Exception ("Nao cadastrado");
 
             serialKiller = new SerialKiller (
-                    id,
+                    resultado.getString("id"),
                     resultado.getString("nome"),
                     resultado.getString("armas"),
                     resultado.getInt("vezesContratado"),
@@ -176,9 +210,10 @@ public class SerialKillers
         return serialKiller;
     }
 
-    public static MeuResultSet getSerialKillers () throws Exception
+
+    public static ArrayList<SerialKiller> getSerialKillers () throws Exception
     {
-        MeuResultSet resultado = null;
+        ArrayList<SerialKiller> serialKillers = new ArrayList<>();
 
         try
         {
@@ -189,13 +224,30 @@ public class SerialKillers
 
             BDPostgreSQL.COMANDO.prepareStatement (sql);
 
-            resultado = (MeuResultSet) BDPostgreSQL.COMANDO.executeQuery ();
+            MeuResultSet resultado = (MeuResultSet) BDPostgreSQL.COMANDO.executeQuery ();
+
+            while (resultado.next())
+            {
+                SerialKiller serialKiller = new SerialKiller(
+                        resultado.getString("id"),
+                        resultado.getString("nome"),
+                        resultado.getString("armas"),
+                        resultado.getInt("vezesContratado"),
+                        resultado.getInt("mortesConfirmadas"),
+                        resultado.getFloat("precoPorContrato"),
+                        resultado.getInt("cep"),
+                        resultado.getInt("numero"),
+                        resultado.getString("complemento")
+                );
+
+                serialKillers.add(serialKiller);
+            }
         }
         catch (SQLException erro)
         {
             throw new Exception ("Erro ao recuperar serial killer");
         }
 
-        return resultado;
+        return serialKillers;
     }
 }

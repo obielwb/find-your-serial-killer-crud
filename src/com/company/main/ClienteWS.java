@@ -48,9 +48,7 @@ public class ClienteWS
             return fromJson(responseJson, tipoObjetoRetorno);
         }
         catch (Exception erro)
-        {
-             erro.printStackTrace();
-        }	
+        { }
 
         return objetoRetorno;
     }
@@ -86,9 +84,9 @@ public class ClienteWS
             String responseJson = inputStreamToString(connection.getInputStream());
             connection.disconnect();
             objetoRetorno = fromJson(responseJson, tipoObjetoRetorno);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        catch (Exception erro)
+        { }
 
         return objetoRetorno;
     }

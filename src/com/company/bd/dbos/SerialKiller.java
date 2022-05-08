@@ -105,14 +105,19 @@ public class SerialKiller {
         this.setComplemento(complemento);
     }
 
+    public SerialKiller (String nome) throws Exception
+    {
+        this.setNome(nome);
+    }
+
     public String toString()
     {
         return  "ID................: " + this.id +
                 "\nNome..............: " + this.nome +
                 "\nArmas.............: " + this.armas +
-                "\nVezes contrato:...: " + this.vezesContratado +
+                "\nVezes contratado..: " + this.vezesContratado +
                 "\nMortes confirmadas: " + this.mortesConfirmadas +
-                "\nPreço por contrato: " + this.precoPorContrato +
+                "\nPreço por contrato: $" + this.precoPorContrato +
                 "\nC.E.P.............: " + this.cep +
                 "\nNumero............: " + this.numero +
                 "\nComplemento.......: " + this.complemento;
