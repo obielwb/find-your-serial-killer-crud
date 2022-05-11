@@ -1,162 +1,159 @@
 package com.company.main;
 
-public class Logradouro
-{
+public class Logradouro {
     private String logradouro;
-    public  String getLogradouro ()
-    {
+
+    public String getLogradouro() {
         return this.logradouro;
     }
-    public void setLogradouro (String logradouro) throws Exception
-    {
-        if (logradouro==null || logradouro.length()==0)
-            throw new Exception ("Logradouro ausente");
+
+    public void setLogradouro(String logradouro) throws Exception {
+        if (logradouro == null || logradouro.length() == 0)
+            throw new Exception("Logradouro ausente");
 
         this.logradouro = logradouro;
     }
 
     private String complemento;
-    public  String getComplemento ()
-    {
+
+    public String getComplemento() {
         return this.complemento;
     }
-    public void setComplemento (String complemento) throws Exception
-    {
+
+    public void setComplemento(String complemento) throws Exception {
         this.complemento = complemento;
     }
 
     private String bairro;
-    public  String getBairro ()
-    {
+
+    public String getBairro() {
         return this.bairro;
     }
-    public void setBairro (String bairro) throws Exception
-    {
-        if (bairro==null || bairro.length()==0)
-            throw new Exception ("Bairro ausente");
+
+    public void setBairro(String bairro) throws Exception {
+        if (bairro == null || bairro.length() == 0)
+            throw new Exception("Bairro ausente");
 
         this.bairro = bairro;
     }
 
     private String cidade;
-    public  String getCidade ()
-    {
+
+    public String getCidade() {
         return this.cidade;
     }
-    public void setCidade (String cidade) throws Exception
-    {
-        if (cidade==null || cidade.length()==0)
-            throw new Exception ("Cidade ausente");
+
+    public void setCidade(String cidade) throws Exception {
+        if (cidade == null || cidade.length() == 0)
+            throw new Exception("Cidade ausente");
 
         this.cidade = cidade;
     }
 
     private InfoCidade cidade_info;
-    public InfoCidade getCidade_info ()
-    {
-        return (InfoCidade)this.cidade_info.clone();
-    }
-    public void setCidade_info (InfoCidade infoCidade) throws Exception
-    {
-        if (infoCidade==null)
-            throw new Exception ("Informacao de cidade ausente");
 
-        this.cidade_info = (InfoCidade)infoCidade.clone();
+    public InfoCidade getCidade_info() {
+        return (InfoCidade) this.cidade_info.clone();
+    }
+
+    public void setCidade_info(InfoCidade infoCidade) throws Exception {
+        if (infoCidade == null)
+            throw new Exception("Informacao de cidade ausente");
+
+        this.cidade_info = (InfoCidade) infoCidade.clone();
     }
 
     private String estado;
-    public  String getEstado ()
-    {
+
+    public String getEstado() {
         return this.estado;
     }
-    public void setEstado (String estado) throws Exception
-    {
-        if (estado==null || estado.length()==0)
-            throw new Exception ("Estado ausente");
+
+    public void setEstado(String estado) throws Exception {
+        if (estado == null || estado.length() == 0)
+            throw new Exception("Estado ausente");
 
         this.estado = estado;
     }
 
     private InfoEstado estado_info;
-    public InfoEstado getEstado_info ()
-    {
-        return (InfoEstado)this.estado_info.clone();
-    }
-    public void setEstado_info (InfoEstado infoEstado) throws Exception
-    {
-        if (infoEstado==null)
-            throw new Exception ("Informacao de estado ausente");
 
-         this.estado_info = (InfoEstado)infoEstado.clone();
+    public InfoEstado getEstado_info() {
+        return (InfoEstado) this.estado_info.clone();
+    }
+
+    public void setEstado_info(InfoEstado infoEstado) throws Exception {
+        if (infoEstado == null)
+            throw new Exception("Informacao de estado ausente");
+
+        this.estado_info = (InfoEstado) infoEstado.clone();
     }
 
     private String cep;
-    public  String getCep ()
-    {
-         return this.cep;
-    }
-    public void setCep (String cep) throws Exception
-    {
-        if (cep==null || cep.length()==0)
-            throw new Exception ("Logradouro ausente");
 
-         this.cep = cep;
+    public String getCep() {
+        return this.cep;
     }
 
-    public Logradouro (String complemento,
-                       String logradouro, String bairro,
-                       String cidade, InfoCidade cidade_info,
-                       String estado, InfoEstado estado_info,
-                       String cep) throws Exception
-    {
-        this.setComplemento (complemento);
-        this.setLogradouro  (logradouro);
-        this.setBairro      (bairro);
-        this.setCidade      (cidade);
-        this.setCidade_info (cidade_info);
-        this.setEstado      (estado);
-        this.setEstado_info (estado_info);
-        this.setCep         (cep); 
+    public void setCep(String cep) throws Exception {
+        if (cep == null || cep.length() == 0)
+            throw new Exception("Logradouro ausente");
+
+        this.cep = cep;
+    }
+
+    public Logradouro(String complemento,
+            String logradouro, String bairro,
+            String cidade, InfoCidade cidade_info,
+            String estado, InfoEstado estado_info,
+            String cep) throws Exception {
+        this.setComplemento(complemento);
+        this.setLogradouro(logradouro);
+        this.setBairro(bairro);
+        this.setCidade(cidade);
+        this.setCidade_info(cidade_info);
+        this.setEstado(estado);
+        this.setEstado_info(estado_info);
+        this.setCep(cep);
     }
 
     // exigencia do mapeador de JSon
-    public Logradouro () {}
-
-    public String toString ()
-    {
-        return "Logradouro........: "+
-               this.logradouro+
-               "\nCidade............: "+
-               this.cidade+
-               " / "+
-               this.cidade_info+
-               "\nEstado............: "+
-               this.estado+
-               " / "+
-               this.estado_info;
+    public Logradouro() {
     }
 
-    public boolean equals (Object obj)
-    {
-        if (this==obj)
+    public String toString() {
+        return "Logradouro........: " +
+                this.logradouro +
+                "\nCidade............: " +
+                this.cidade +
+                " / " +
+                this.cidade_info +
+                "\nEstado............: " +
+                this.estado +
+                " / " +
+                this.estado_info;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
 
-        if (obj==null)
+        if (obj == null)
             return false;
 
-      //if (!(this.getClass() != obj.getClass())
-      //if (!(obj.getClass != Logradouro.class))
+        // if (!(this.getClass() != obj.getClass())
+        // if (!(obj.getClass != Logradouro.class))
         if (!(obj instanceof Logradouro))
             return false;
 
-        Logradouro cep = (Logradouro)obj;
+        Logradouro cep = (Logradouro) obj;
 
         if (!this.logradouro.equals(cep.logradouro))
             return false;
 
-        if ((this.complemento==null && cep.complemento!=null) ||
-            (this.complemento!=null && cep.complemento==null) ||
-            !this.complemento.equals(cep.complemento))
+        if ((this.complemento == null && cep.complemento != null) ||
+                (this.complemento != null && cep.complemento == null) ||
+                !this.complemento.equals(cep.complemento))
             return false;
 
         if (!this.cidade.equals(cep.cidade))
@@ -177,48 +174,43 @@ public class Logradouro
         return true;
     }
 
-    public int hashCode ()
-    {
-        int ret=1;
+    public int hashCode() {
+        int ret = 1;
 
-        ret = 2*ret + this.logradouro .hashCode();
+        ret = 2 * ret + this.logradouro.hashCode();
 
-        if (this.complemento!=null)
-            ret = 2*ret + this.complemento.hashCode();
+        if (this.complemento != null)
+            ret = 2 * ret + this.complemento.hashCode();
 
-        ret = 2*ret + this.cidade     .hashCode();
-        ret = 2*ret + this.cidade_info.hashCode();
-        ret = 2*ret + this.estado     .hashCode();
-        ret = 2*ret + this.estado_info.hashCode();
-        ret = 2*ret + this.cep        .hashCode();
+        ret = 2 * ret + this.cidade.hashCode();
+        ret = 2 * ret + this.cidade_info.hashCode();
+        ret = 2 * ret + this.estado.hashCode();
+        ret = 2 * ret + this.estado_info.hashCode();
+        ret = 2 * ret + this.cep.hashCode();
 
         return ret;
     }
 
-    public Logradouro (Logradouro modelo) throws Exception
-    {
-        if (modelo==null)
-            throw new Exception ("Modelo inexistente");
+    public Logradouro(Logradouro modelo) throws Exception {
+        if (modelo == null)
+            throw new Exception("Modelo inexistente");
 
-        this.logradouro  = modelo.logradouro;
+        this.logradouro = modelo.logradouro;
         this.complemento = modelo.complemento;
-        this.cidade      = modelo.cidade;
-        this.cidade_info = (InfoCidade)modelo.cidade_info.clone();
-        this.estado      = modelo.estado;
-        this.estado_info = (InfoEstado)modelo.estado_info.clone();
-        this.cep         = modelo.cep;
+        this.cidade = modelo.cidade;
+        this.cidade_info = (InfoCidade) modelo.cidade_info.clone();
+        this.estado = modelo.estado;
+        this.estado_info = (InfoEstado) modelo.estado_info.clone();
+        this.cep = modelo.cep;
     }
 
-    public Object clone ()
-    {
-        Logradouro ret=null;
+    public Object clone() {
+        Logradouro ret = null;
 
-        try
-        {
-            ret = new Logradouro (this);
+        try {
+            ret = new Logradouro(this);
+        } catch (Exception erro) {
         }
-        catch (Exception erro)
-        {}
 
         return ret;
     }

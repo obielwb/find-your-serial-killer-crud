@@ -11,71 +11,63 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.MappingJsonFactory;
 import org.codehaus.jackson.map.ObjectMapper;
 
-public class ClienteWS
-{
-    public static Object getObjeto (Class tipoObjetoRetorno,
-                                    String urlWebService,
-                                    String... parametros)
-    {
+public class ClienteWS {
+    public static Object getObjeto(Class tipoObjetoRetorno,
+            String urlWebService,
+            String... parametros) {
         Object objetoRetorno = null;
-	
-        try
-        {
+
+        try {
             StringBuilder urlWebServiceBuilder = new StringBuilder(urlWebService);
             for (String parametro : parametros)
                 urlWebServiceBuilder.append("/").append(parametro.replaceAll(" ", "%20"));
             urlWebService = urlWebServiceBuilder.toString();
 
-            URL url = new URL (urlWebService);
-            HttpURLConnection connection =
-            (HttpURLConnection) url.openConnection();
+            URL url = new URL(urlWebService);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(15000);
-            //connection.setRequestProperty("login", "seulogin");
-            //connection.setRequestProperty("senha", "suasenha");
+            // connection.setRequestProperty("login", "seulogin");
+            // connection.setRequestProperty("senha", "suasenha");
             connection.connect();
 
             String responseJson = inputStreamToString(connection.getInputStream());
             connection.disconnect();
-		
+
             return fromJson(responseJson, tipoObjetoRetorno);
+        } catch (Exception erro) {
         }
-        catch (Exception erro)
-        { }
 
         return objetoRetorno;
     }
 
-    public static Object postObjeto (Object objetoEnvio,
-                                     Class tipoObjetoRetorno,
-                                     String urlWebService) {
+    public static Object postObjeto(Object objetoEnvio,
+            Class tipoObjetoRetorno,
+            String urlWebService) {
         Object objetoRetorno = null;
 
         try {
             String requestJson = toJson(objetoEnvio);
 
             URL url = new URL(urlWebService);
-            HttpURLConnection connection =
-                    (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             connection.setUseCaches(false);
             connection.setConnectTimeout(15000);
-            //connection.setRequestProperty("login", "seulogin");
-            //connection.setRequestProperty("senha", "suasenha");
+            // connection.setRequestProperty("login", "seulogin");
+            // connection.setRequestProperty("senha", "suasenha");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("Content-Length", Integer.toString(requestJson.length()));
 
-            DataOutputStream stream =
-                    new DataOutputStream(connection.getOutputStream());
+            DataOutputStream stream = new DataOutputStream(connection.getOutputStream());
             stream.write(requestJson.getBytes("UTF-8"));
             stream.flush();
             stream.close();
@@ -84,17 +76,14 @@ public class ClienteWS
             String responseJson = inputStreamToString(connection.getInputStream());
             connection.disconnect();
             objetoRetorno = fromJson(responseJson, tipoObjetoRetorno);
+        } catch (Exception erro) {
         }
-        catch (Exception erro)
-        { }
 
         return objetoRetorno;
     }
 
-    public static String inputStreamToString (InputStream is) throws IOException
-    {
-        if (is != null)
-        {
+    public static String inputStreamToString(InputStream is) throws IOException {
+        if (is != null) {
             Writer writer = new StringWriter();
 
             char[] buffer = new char[1024];
@@ -107,23 +96,19 @@ public class ClienteWS
             }
 
             return writer.toString();
-        }
-        else
-        {
+        } else {
             return "";
         }
     }
 
-    public static String toJson(Object objeto) throws Exception
-    {
+    public static String toJson(Object objeto) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         StringWriter jsonValue = new StringWriter();
         mapper.writeValue(new PrintWriter(jsonValue), objeto);
         return jsonValue.toString();
     }
 
-    public static Object fromJson(String json, Class objectClass) throws Exception
-    {
+    public static Object fromJson(String json, Class objectClass) throws Exception {
         JsonFactory f = new MappingJsonFactory();
         JsonParser jp = f.createJsonParser(json);
         Object obj = jp.readValueAs(objectClass);
