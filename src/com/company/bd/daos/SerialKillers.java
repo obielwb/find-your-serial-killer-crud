@@ -148,7 +148,7 @@ public class SerialKillers {
         return serialKiller;
     }
 
-    public static SerialKiller getSerialKiller(String parameter, String value) throws Exception {
+    private static SerialKiller getSerialKiller(String parameter, String value) throws Exception {
         SerialKiller serialKiller = null;
 
         try {
