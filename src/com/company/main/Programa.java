@@ -51,11 +51,11 @@ public class Programa {
                                     """);
 
                             System.out.print("Informe o nome do Serial Killer: ");
-                            String nome = Teclado.getUmString().trim();
+                            String nome = Teclado.getUmString();
 
                             if (!SerialKillers.cadastrado(nome)) {
                                 System.out.print("Informe as armas do Serial Killer: ");
-                                String armas = Teclado.getUmString().trim();
+                                String armas = Teclado.getUmString();
 
                                 System.out.print("Informe o número de vezes contratado: ");
                                 int vezesContratado = Teclado.getUmInt();
@@ -82,6 +82,7 @@ public class Programa {
 
                                     if (logradouro == null) {
                                         System.err.println("C.E.P. inválido!");
+                                        System.err.flush();
                                         System.out.print("Informe o C.E.P. do endereço: ");
 
                                         cep = Teclado.getUmInt();
@@ -118,6 +119,7 @@ public class Programa {
                             else {
                                 System.err.println(
                                         "\nSerial Killer com nome '" + nome + "' já existe:\n");
+                                System.err.flush();
 
                                 SerialKiller serialKiller = null;
                                 try {
@@ -155,6 +157,7 @@ public class Programa {
                             else if (retornar != 'S') {
                                 System.err.print(
                                         "\nOpção inválida. Você será redirecionado ao menu. Pressione [ENTER] para continuar.");
+                                System.err.flush();
                                 Teclado.getUmString();
                             }
                         } catch (Exception erro) {
@@ -257,6 +260,7 @@ public class Programa {
                                     System.err
                                             .println("\nSerial Killer com identificador '" + input
                                                     + "' não encontrado!\n");
+                                    System.err.flush();
                                 }
                             }
 
@@ -270,6 +274,7 @@ public class Programa {
                             else if (retornar != 'S') {
                                 System.err.print(
                                         "\nOpção inválida. Você será redirecionado ao menu. Pressione [ENTER] para continuar.");
+                                System.err.flush();
                                 Teclado.getUmString();
                             }
                         } catch (Exception erro) {
@@ -379,7 +384,8 @@ public class Programa {
                                             }
 
                                             if (logradouro == null) {
-                                                System.out.println("C.E.P. inválido!");
+                                                System.err.println("C.E.P. inválido!");
+                                                System.err.flush();
                                                 System.out.print("Informe o C.E.P. do endereço: ");
                                                 cep = Teclado.getUmInt();
                                             }
@@ -438,6 +444,7 @@ public class Programa {
                                 else {
                                     System.err.println(
                                             "\nSerial Killer com identificador '" + input + "' não encontrado!\n");
+                                    System.err.flush();
                                 }
                             } catch (Exception erro) {
                                 System.err.println(erro.getMessage());
@@ -453,6 +460,7 @@ public class Programa {
                             else if (retornar != 'S') {
                                 System.err.print(
                                         "\nOpção inválida. Você será redirecionado ao menu. Pressione [ENTER] para continuar.");
+                                System.err.flush();
                                 Teclado.getUmString();
                             }
                         } catch (Exception erro) {
@@ -528,12 +536,14 @@ public class Programa {
 
                                     else {
                                         System.err.println("Exclusão cancelada!\n");
+                                        System.err.flush();
                                     }
                                 }
 
                                 else {
                                     System.err.println(
                                             "\nSerial Killer com identificador '" + input + "' não encontrado!\n");
+                                    System.err.flush();
                                 }
                             } catch (Exception erro) {
                                 System.err.println(erro.getMessage());
@@ -549,6 +559,7 @@ public class Programa {
                             else if (retornar != 'S') {
                                 System.err.print(
                                         "\nOpção inválida. Você será redirecionado ao menu. Pressione [ENTER] para continuar.");
+                                System.err.flush();
                                 Teclado.getUmString();
                             }
                         } catch (Exception erro) {
@@ -558,6 +569,7 @@ public class Programa {
 
                     default:
                         System.err.println("Opção inválida!\n");
+                        System.err.flush();
                         break;
                 }
             } catch (Exception erro) {
